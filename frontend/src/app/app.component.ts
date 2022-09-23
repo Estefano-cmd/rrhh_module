@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonalService } from "./services/personal.service";
+
 
 @Component({
   selector: 'app-root',
@@ -8,15 +8,9 @@ import { PersonalService } from "./services/personal.service";
 })
 export class AppComponent implements OnInit {
   title = 'Recursos Humanos';
-  personal: any
 
-  constructor( public personalService: PersonalService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-      this.personalService.getPersonal().subscribe(data => {
-        console.log(data)
-        this.personal = data
-      })
-  }
+  ngOnInit(): void { }
   
 }

@@ -1,0 +1,28 @@
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar personal" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </div>
+</nav>
+<table class="table table-striped" *ngIf="personal">
+    <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Carnet de identidad</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Género</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let per of personal">
+          <td>{{per.nombre}} {{per.apellido}}</td>
+          <td>{{per.ci}}</td>
+          <td>{{per.telefeno}}</td>
+          <td>{{per.correo}}</td>
+          <td>{{per.genpersonal}}</td>
+        </tr>
+    </tbody>
+</table>
