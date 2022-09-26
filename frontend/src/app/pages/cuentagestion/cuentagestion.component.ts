@@ -12,13 +12,19 @@ import { PersonalService } from '../../services/personal.service';
 })
 export class CuentagestionComponent implements OnInit {
   contrato: any
+  ci: string = ''
 
   constructor(public personalService: PersonalService) { }
 
   ngOnInit(): void {
+    this.personalService.getPersonal().subscribe(data => {
+      console.log(data)
+     this.personalService.staff = data
+    })
   }
 
   searchContrato(form: NgForm){
+    console.log(form.value)
     this.personalService.getContrato(form.value).subscribe(
       (res) => {
         this.contrato = res;
@@ -42,5 +48,9 @@ export class CuentagestionComponent implements OnInit {
       form.reset();
       this.personalService.SelectedCuenta = new Cuenta();
     }
+  }
+
+  mostrarData(e: any) {
+    console.log(e)
   }
 }

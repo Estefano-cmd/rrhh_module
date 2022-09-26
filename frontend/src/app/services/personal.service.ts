@@ -39,7 +39,7 @@ export class PersonalService {
   }
   
   getPersonalByLastName(staff: Staff){
-    return this.http.get<Staff[]>(`${this.url}/personal/lastname/${staff.apellido}`);
+    return this.http.get<Staff[]>(`${this.url}/personal/${staff.apellido}`);
   }
   
   getCargo(): Observable<any>{
