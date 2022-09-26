@@ -58,6 +58,37 @@
         <button class="btn btn-outline-success">Guardar</button>
     </form>
 </div>
+
 <div class="row">
-    <form #cuentaForm="ngForm" (ngSubmit)="createCuentaGestion(cuentaForm)" *ngFor="let cont of contrato"></form>
+    <form #cuentaDataForm="ngForm" (ngSubmit)="getCuenta(cuentaDataForm)">
+        <div class="form-group">
+            <label for="">Fecha de inicio</label>
+            <input type="date" name="fecini" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.fecini"
+              placeholder="Fecha Gestión" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="">Fecha de finalización</label>
+            <input type="date" name="fecfin" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.fecfin"
+              placeholder="Fecha Gestión" class="form-control">
+        </div>
+        <br>
+        <button class="btn btn-outline-success" style="float: left;">Filtrar</button>
+    </form>
 </div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th scope="col">Fecha de emisión</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cta of (personalService.cuenta)">
+          <td>{{ cta.feccuenta }}</td>
+          <td>{{ cta.estadocuenta }}</td>
+          <td>{{ cta.totalpago }}</td>
+        </tr>
+    </tbody>
+</table>

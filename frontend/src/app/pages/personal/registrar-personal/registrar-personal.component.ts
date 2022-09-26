@@ -38,6 +38,8 @@ export class RegistrarPersonalComponent implements OnInit {
         this.personalService.staff = res;
         this.personalService.staff = Array.of(this.personalService.staff)
         console.log(res)
+      }, (err) => {
+        Swal.fire('Error', 'Personal no encontrado', 'error')
       }
     );
   }
@@ -48,31 +50,31 @@ export class RegistrarPersonalComponent implements OnInit {
         this.personalService.staff = res;
         this.personalService.staff = Array.of(this.personalService.staff)
         console.log(res)
-        return true
+      }, (err) => {
+        Swal.fire('Error', 'Personal no encontrado', 'error')
       }
     );
-    return false
   }
   
   addStaff(form: NgForm){
     this.personalService.addStaff(form.value).subscribe(
       (res) => {
-       if(this.searchStaffAdd(form)){
-        alert('error')
-       } else {
-         Swal.fire({
-          text: 'Personal registrado correctamente',
-          icon: 'success',
-          showConfirmButton: true,
-          confirmButtonText: 'Ok'
-         }).then(r => {
-          if(r.value) {
-            this.resetForm();  
-          }
-         })
-       }
+       this.searchStaffAdd(form)
+
+       Swal.fire({
+        text: 'Personal registrado correctamente',
+        icon: 'success',
+        showConfirmButton: true,
+        confirmButtonText: 'Ok'
+       }).then(r => {
+        if(r.value) {
+          this.resetForm();  
+        }
+       })
+      }, (err) => {
+        Swal.fire('Error', 'Personal no registrado', 'error')
       }
-      )
+    )
   }
 
   resetForm(form?: NgForm){

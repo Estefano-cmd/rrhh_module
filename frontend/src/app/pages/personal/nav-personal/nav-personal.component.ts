@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { PersonalService } from 'src/app/services/personal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-nav-personal',
@@ -23,6 +24,8 @@ export class NavPersonalComponent implements OnInit {
         (res) => {
           this.personalService.staff = res;
           console.log(res)
+        }, (err) => {
+          Swal.fire('Error', 'Personal no encontrado', 'error')
         }
       );
     }

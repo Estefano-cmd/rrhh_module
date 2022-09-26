@@ -14,6 +14,8 @@ import { PersonalService } from '../../services/personal.service';
 export class CuentagestionComponent implements OnInit {
   contrato: any
   ci: string = ''
+  cuenta: any
+  total: any
 
   constructor(public personalService: PersonalService) { }
 
@@ -44,6 +46,20 @@ export class CuentagestionComponent implements OnInit {
         this.resetForm(); 
        }
     )
+  }
+
+  getCuenta(form: NgForm) {
+    console.log(form)
+    this.personalService.getCuenta(this.ci, form.value.fecini, form.value.fecfin).subscribe(
+      (res) => {
+        this.personalService.cuenta = res
+        console.log(res)
+      }
+    )
+  }
+
+  totalCuenta() {
+
   }
 
   resetForm(form?: NgForm){
