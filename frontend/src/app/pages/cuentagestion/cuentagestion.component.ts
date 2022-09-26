@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Cuenta } from 'src/app/models/cuentagestion';
 import { Staff } from 'src/app/models/personal';
+import Swal from 'sweetalert2';
 
 import { PersonalService } from '../../services/personal.service';
 
@@ -30,6 +31,8 @@ export class CuentagestionComponent implements OnInit {
         this.contrato = res;
         this.contrato = Array.of(this.contrato)
         console.log(res)
+      }, err => {
+        Swal.fire('Error', 'El personal no tiene un contrato vigente', 'error')
       }
     );
   }
