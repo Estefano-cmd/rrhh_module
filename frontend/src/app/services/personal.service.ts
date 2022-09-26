@@ -65,4 +65,8 @@ export class PersonalService {
   createCuenta(cuenta: Cuenta){
     return this.http.post(`${this.url}/cuenta`, cuenta);
   }
+
+  getCuenta(staff: Staff) {
+    // return this.http.get()
+  }
 }

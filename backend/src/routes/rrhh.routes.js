@@ -27,7 +27,7 @@ router.post('/personal', createPerson);
 router.get('/personal/cargo', getCargo);
 router.get('/personal/area', getArea);
 router.get('/personal/pro', getPro);
-router.get('/cuenta/:apellido/:fecini/:fecfin', getCuenta);
+router.get('/cuenta/:ci/:fecini/:fecfin', getCuenta);
 router.get('/contrato/:ci', getContrato);
 router.post('/cuenta', createCuentaGestion);
 router.post('/cuenta/anticipo', newAnticipo);

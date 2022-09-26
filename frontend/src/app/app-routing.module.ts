@@ -15,7 +15,10 @@ const routes: Routes = [
     path: 'personal', 
     loadChildren: () => import('./pages/personal/personal.module').then(m => m.PersonalModule)
   },
-  { path: 'pagos', component: CuentagestionComponent }
+  { path: 'pagos', component: CuentagestionComponent },
+  { path: 'solicitudes',
+    loadChildren: () => import('./pages/solicitudes/solicitudes.module').then(m => m.SolicitudesModule)
+  }
 ];
 
 @NgModule({

@@ -218,8 +218,8 @@ const newBono = async (req, res, next) => {
 
 const getCuenta = async (req, res, next) => {
     try {
-        const { apellido, fecini, fecfin } = req.params;
-        const pago = await connection.query('SELECT * from rrhh_cuentagestion cu inner join rrhh_personal p on p.id = cu.idpersonal inner join rrhh_contacto co on p.id = co.id WHERE co.apellido = $1 AND feccuenta between $2 AND $3', [apellido, fecini, fecfin]);
+        const { ci, fecini, fecfin } = req.params;
+        const pago = await connection.query('SELECT * from rrhh_cuentagestion cu inner join rrhh_personal p on p.id = cu.idpersonal inner join rrhh_contacto co on p.id = co.id WHERE co.ci = $1 AND feccuenta between $2 AND $3', [ci, fecini, fecfin]);
         const anticipo = await connection.query('SELECT * from rrhh_anticipo a inner join rrhh_cuentagestion cu on a.idcuentagestion = cu.id WHERE a.idcuentagestion = $1 AND fecanticipo between $2 AND $3', [pago.fields.id, fecini, fecfin]);
         const descuento = await connection.query('SELECT * from rrhh_descuento d inner join rrhh_cuentagestion cu on d.idcuentagestion = cu.id WHERE d.idcuentagestion = $1 AND fecmonto between $2 AND $3', [pago.fields.id, fecini, fecfin]);
         const bono = await connection.query('SELECT * from rrhh_bono b inner join rrhh_cuentagestion cu on b.idcuentagestion = cu.id WHERE b.idcuentagestion = $1 AND fecbono between $2 AND $3', [pago.fields.id, fecini, fecfin]);
