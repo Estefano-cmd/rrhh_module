@@ -8,6 +8,7 @@ import { RegistrarPersonalComponent } from './registrar-personal/registrar-perso
 import { NavPersonalComponent } from './nav-personal/nav-personal.component';
 
 
+
 @NgModule({
   declarations: [
     ListadoPersonalComponent,

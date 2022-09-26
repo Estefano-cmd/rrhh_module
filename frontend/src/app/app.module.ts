@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { CuentagestionComponent } from './pages/cuentagestion/cuentagestion.component';
 
 
-
 @NgModule({
   imports: [
     BrowserModule,

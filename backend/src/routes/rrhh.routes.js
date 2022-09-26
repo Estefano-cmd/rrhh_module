@@ -21,7 +21,7 @@ const router = Router();
 
 router.get('/personal', getPerson);
 router.get('/:apellido', getOnePerson);
-router.get('/personal/:apellido', getPersonByLastName);
+router.get('/personal/lastname/:apellido', getPersonByLastName);
 router.post('/personalPrueba', createPerson2);
 router.post('/personal', createPerson);
 router.get('/personal/cargo', getCargo);
