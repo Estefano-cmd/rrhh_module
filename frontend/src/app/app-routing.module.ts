@@ -6,8 +6,15 @@ import { ListadoPersonalComponent } from './pages/personal/listado-personal/list
 import { CuentagestionComponent } from  './pages/cuentagestion/cuentagestion.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full'},
-  { path: 'personal', component: ListadoPersonalComponent},
+  { 
+    path: '', 
+    redirectTo: '/', 
+    pathMatch: 'full'
+  },
+  { 
+    path: 'personal', 
+    loadChildren: () => import('./pages/personal/personal.module').then(m => m.PersonalModule)
+  },
   { path: 'pagos', component: CuentagestionComponent }
 ];
 
