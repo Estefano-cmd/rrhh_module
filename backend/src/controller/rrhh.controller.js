@@ -51,7 +51,7 @@ const createPerson = async (req, res, next) => {
         
         /* Validación si existe el contacto */
         if (existe != null) {
-            const personal = await connection.query('SELECT * from personal WHERE id = $1', [existe.fields[0]]);
+            const personal = await connection.query('SELECT * from rrhh_personal WHERE id = $1', [existe.fields[0]]);
             /* Validación si existe el personal */
             if (personal != null) {
                 return res('The staff is alredy registered')
@@ -63,8 +63,8 @@ const createPerson = async (req, res, next) => {
                 res.json(newPerson.rows[0]);
             }
         } else {
-            const newContact = await connection.query('INSERT INTO rrhh_contacto (nombre, apellido, ci, telefono, correo, direccion, fecnac) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-                [nombre, buscar, ci, telefono, correo, direccion, fecnac]);
+            const newContact = await connection.query('INSERT INTO rrhh_contacto (nombre, apellido, ci, telefeno, correo, direccion, fecnac) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+                [nombre, buscar, ci, telefeno, correo, direccion, fecnac]);
 
             const newPerson = await connection.query('INSERT INTO rrhh_personal (id, genpersonal, antecedentes, descpsicologico, idcargo, idarea, idprofesion) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
                 [newContact.fields[0], genpersonal, antecedentes, descpsicologica, idcargo, idarea, idprofesion]);
@@ -213,6 +213,20 @@ const getCuenta = async (req, res, next) => {
     }
 }
 
+const updateCuenta = async (req , res, next) => {
+    try {
+        const { estadocuenta } = req.params;
+        const { estadocuenta2 } = req.body;
+        const response = await connection.query("UPDATE rrhh_cuentagestion set estadocuenta = $2 WHERE estadocuenta = $1", [estadocuenta, estadocuenta2]);
+
+        res.json({
+            message: 'Cuentagestion Updated Successully'
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     getPerson,
     getOnePerson,
@@ -225,5 +239,6 @@ module.exports = {
     getCuenta,
     getContrato,
     newDescuento,
-    newBono
+    newBono,
+    updateCuenta
 };

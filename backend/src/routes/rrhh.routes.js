@@ -11,7 +11,8 @@ const {
   getArea,
   getPro,
   getCuenta,
-  getContrato
+  getContrato,
+  updateCuenta
   } = require("../controller/rrhh.controller");
 
 const router = Router();
@@ -27,6 +28,7 @@ router.get('/contrato/:apellido', getContrato);
 router.post('/cuenta', createCuentaGestion);
 router.post('/cuenta/anticipo', newAnticipo);
 router.post('/cuenta/descuento', newDescuento);
-router.post('/cuenta/bono', newBono); 
+router.post('/cuenta/bono', newBono);
+router.put('/:estadocuenta', updateCuenta);
 
 module.exports = router;
