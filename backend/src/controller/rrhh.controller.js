@@ -119,6 +119,9 @@ const getContrato = async (req, res, next) => {
     try {
         const { apellido } = req.params;
         const contrato = await connection.query("SELECT * FROM rrhh_contrato c inner join rrhh_personal p on p.id = c.idpersonal inner join rrhh_contacto co on co.id = p.id WHERE co.apellido = $1", [apellido]);
+        if(contrato.rows.length === 0){
+            return res.status(404).json({message: "Staff without contract"});
+        }
         res.json(contrato.rows[0]);
     } catch (error) {
         next(error)
