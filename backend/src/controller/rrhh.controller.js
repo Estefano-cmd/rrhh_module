@@ -152,13 +152,47 @@ const newAnticipo = async (req, res, next) => {
         const { fecanticipo, montoanticipo, detalleanticipo, apellido } = req.body;
         const contrato = await connection.query("SELECT * FROM rrhh_personal p inner join rrhh_cuentagestion cg on p.id = cg.idpersonal WHERE p.apellido = $1", [apellido]);
         const anticipo = await connection.query("INSERT INTO rrhh_anticipo (fecanticipo, montoanticipo, detalleanticipo, idcuentagestion) VALUES ($1, $2, $3, $4) RETURNING *",
-        [fecanticipo, montoanticipo, detalleanticipo, contrato.fields[7]]);
+        [fecanticipo, montoanticipo, detalleanticipo, contrato.field.id]);
         
         const total = contrato.fields.sueldo - anticipo.fields.montoanticipo;
 
-        await connection.query('UPDATE rrhh_cuentagestion c inner join rrhh_anticipo a on c.id = a.idcuentagestion set totalpago = $1')
+        await connection.query('UPDATE rrhh_cuentagestion c inner join rrhh_anticipo a on c.id = a.idcuentagestion set totalpago = $1', [total])
 
         res.json(anticipo.rows[0]);
+
+    } catch (error) {
+        next(error);
+    }
+}
+const newDescuento = async (req, res, next) => {
+    try {
+        const { fecmonto, montodescuento, idcategoria, apellido } = req.body;
+        const contrato = await connection.query("SELECT * FROM rrhh_personal p inner join rrhh_cuentagestion cg on p.id = cg.idpersonal WHERE p.apellido = $1", [apellido]);
+        const descuento = await connection.query("INSERT INTO rrhh_descuento (fecmonto, montodescuento, idcuentagestion, idcategoria) VALUES ($1, $2, $3, $4) RETURNING *",
+        [fecmonto, montodescuento, contrato.fields.id, idcategoria]);
+        
+        const total = contrato.fields.sueldo - anticipo.fields.montoanticipo;
+
+        await connection.query('UPDATE rrhh_cuentagestion c inner join rrhh_descuento d on c.id = d.idcuentagestion set totalpago = $1', [total])
+
+        res.json(descuento.rows[0]);
+
+    } catch (error) {
+        next(error);
+    }
+}
+const newBono = async (req, res, next) => {
+    try {
+        const { fecbono, montobono, detallebono, idcategoria, apellido } = req.body;
+        const contrato = await connection.query("SELECT * FROM rrhh_personal p inner join rrhh_cuentagestion cg on p.id = cg.idpersonal WHERE p.apellido = $1", [apellido]);
+        const bono = await connection.query("INSERT INTO rrhh_bono (fecbono, montobono, detallebono, idcuentagestion, idcategoria) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+        [fecbono, montobono, detallebono, contrato.fields.id, idcategoria]);
+        
+        const total = contrato.fields.sueldo + bono.fields.montoanticipo;
+
+        await connection.query('UPDATE rrhh_cuentagestion c inner join rrhh_bono b on c.id = b.idcuentagestion set totalpago = $1', [total])
+
+        res.json(bono.rows[0]);
 
     } catch (error) {
         next(error);
@@ -184,5 +218,7 @@ module.exports = {
     getArea,
     getPro,
     getCuenta,
-    getContrato
+    getContrato,
+    newDescuento,
+    newBono
 };
