@@ -103,7 +103,7 @@ const getOnePerson = async (req, res, next) => {
     try {
         const { apellido } = req.params;
 
-        const result = await connection.query("SELECT * FROM rrhh_personal p inner join rrhh_contacto c on p.id = c.id WHERE c.apellido = $1", [apellido]);
+        const result = await connection.query("SELECT * FROM rrhh_personal p inner join rrhh_contacto c on p.id = c.id inner join rrhh_cargo ca on p.idcargo = ca.id WHERE c.apellido = $1", [apellido]);
         if(result.rows.length === 0){
             return res.status(404).json({message: "Staff not found"});
         }

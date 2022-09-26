@@ -15,3 +15,21 @@
     grid-template-columns: repeat(2,1fr);
     grid-gap: 20px;
 }
+
+form{
+    overflow-x: hidden;
+}
+
+.form-group{
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 0 10px 0 10px;
+}
+
+.btn{
+    float: right;
+    margin-left: 10px;
+}
+h1{
+    text-align: center;
+}
