@@ -1,12 +1,16 @@
-<nav class="navbar bg-light">
+<!-- <nav class="navbar bg-light">
     <div class="container-fluid">
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar personal" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
+        
     </div>
-</nav>
-<table class="table table-striped" *ngIf="personal">
+</nav> -->
+<div class="container-fluid col-md-4">
+    <form class="d-flex" #staffSearch="ngForm" (ngSubmit)="searchStaff(staffSearch)">
+        <input class="form-control me-2" placeholder="Buscar personal" aria-label="Search" name="apellido" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.apellido">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>        
+</div>
+
+<table class="table table-striped">
     <thead>
         <tr>
           <th scope="col">Nombre</th>
@@ -17,12 +21,88 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let per of personal">
-          <td>{{per.nombre}} {{per.apellido}}</td>
-          <td>{{per.ci}}</td>
-          <td>{{per.telefeno}}</td>
-          <td>{{per.correo}}</td>
-          <td>{{per.genpersonal}}</td>
+        <tr *ngFor="let personal of (personalService.staff)">
+          <td>{{ personal.nombre }} {{ personal.apellido }}</td>
+          <td>{{ personal.ci }}</td>
+          <td>{{ personal.telefeno }}</td>
+          <td>{{ personal.correo }}</td>
+          <td>{{ personal.genpersonal }}</td>
         </tr>
     </tbody>
 </table>
+
+<div class="row">
+    <!-- FORM -->
+    <form #staffForm="ngForm" (ngSubmit)="addStaff(staffForm)">
+        <div class="form-group">
+            <div class="input-field col-s12">
+              <input type="text" name="nombre" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.nombre"
+                placeholder="Ingresa el Nombre" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" name="apellido" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.apellido"
+              placeholder="Ingresa el Apellido" class="form-control">
+        </div>
+        <div class="form-group">
+            <div class="input-field col-s12">
+              <input type="text" name="ci" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.ci"
+                placeholder="Ingresa el CI" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" name="telefeno" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.telefeno"
+              placeholder="Ingresa el Telefono" class="form-control">
+        </div>
+        <div class="form-group">
+            <div class="input-field col-s12">
+              <input type="text" name="correo" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.correo"
+                placeholder="Ingresa el Correo" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" name="direccion" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.direccion"
+              placeholder="Ingresa la Direccion" class="form-control">
+        </div>
+        <div class="form-group">
+            <div class="input-field col-s12">
+              <input type="date" name="fecnac" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.fecnac"
+                placeholder="Ingresa la Fecha de Nacimiento" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <select name="genpersonal" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.genpersonal" id="" class="form-control">
+                <option value="MASCULINO" selected>MASCULINO</option>
+                <option value="FEMENINO">FEMENINO</option>
+                <option value="OTRO">OTRO</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <div class="input-field col-s12">
+              <input type="text" name="antecedentes" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.antecedentes"
+                placeholder="Ingresa los Antecedentes" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" name="decpsicologico" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.decpsicologico"
+              placeholder="Ingresa la Respuesta Psicológica" class="form-control">
+        </div>
+        <div class="form-group">
+            <select name="idcargo" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.idcargo" id="" class="form-control">
+                <option *ngFor="let car of cargo" value={{car.id}}>{{car.detalle}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select name="idarea" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.idarea" id="" class="form-control">
+                <option *ngFor="let are of area" value={{are.id}}>{{are.detalle}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select name="idprofesion" #name="ngModel" [(ngModel)]="personalService.SelectedStaff.idprofesion" id="" class="form-control">
+                <option *ngFor="let pro of profesion" value={{pro.id}}>{{pro.detalle}}</option>
+            </select>
+        </div>
+        <button class="btn btn-primary mr-2" (click)="resetForm(staffForm)">Clean</button>
+        <button class="btn btn-secondary">Save</button>
+    </form>
+</div>
