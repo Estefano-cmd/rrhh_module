@@ -14,7 +14,7 @@ import { CuentagestionComponent } from './pages/cuentagestion/cuentagestion.comp
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     AppComponent,

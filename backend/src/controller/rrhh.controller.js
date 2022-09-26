@@ -32,7 +32,7 @@ const getPro = async (req, res, next) => {
 /* VISUALIZACIÓN DE TODO EL PERSONAL */
 const getPerson = async (req, res, next) => {
     try {
-        const allPerson = await connection.query('SELECT * from rrhh_personal p inner join rrhh_contacto c on c.id = p.id');
+        const allPerson = await connection.query('SELECT * FROM rrhh_personal p inner join rrhh_contacto c on p.id = c.id inner join rrhh_cargo ca on p.idcargo = ca.id');
         res.json(allPerson.rows);
     } catch (error) {
         next(error);
@@ -43,31 +43,34 @@ const getPerson = async (req, res, next) => {
 /* CREACIÓN DE UN NUEVO PERSONAL REVISAR */
 const createPerson = async (req, res, next) => {
     try {
-        const buscar = req.params.apellido;
-        const { nombre, ci, telefono, correo, direccion, fecnac,
-            genpersonal, antecedentes, descpsicologica, idcargo, idarea, idprofesion } = req.body;
+        const { nombre, apellido, ci, telefeno, correo, direccion, fecnac,
+            genpersonal, antecedentes, decpsicologico, idcargo, idarea, idprofesion } = req.body;
 
-        const existe = await connection.query('SELECT * from rrhh_contacto WHERE apellido = $1', [buscar]);
-        
+        const existe = await connection.query('SELECT * from rrhh_contacto WHERE ci = $1', [ci]);
+        console.log(existe.rowCount)
+
         /* Validación si existe el contacto */
-        if (existe != null) {
-            const personal = await connection.query('SELECT * from personal WHERE id = $1', [existe.fields[0]]);
+        if (existe.rowCount > 0) {
+            console.log(existe.rows[0])
+            const personal = await connection.query('SELECT * from rrhh_personal WHERE id = $1', [existe.rows[0].id]);
+
             /* Validación si existe el personal */
-            if (personal != null) {
-                return res('The staff is alredy registered')
+            if (personal.rowCount > 0) {
+                return res.json('The staff is alredy registered')
             } else {
-                const id = existe.fields[0];
-                const newPerson = await connection.query('INSERT INTO rrhh_personal (id, genpersonal, antecedentes, descpsicologico, idcargo, idarea, idprofesion) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-                    [id, genpersonal, antecedentes, descpsicologica, idcargo, idarea, idprofesion]);
+                const id_contact = existe.rows[0].id;
+                console.log(decpsicologico)
+                const newPerson = await connection.query('INSERT INTO rrhh_personal (id, genpersonal, antecedentes, decpsicologico, idcargo, idarea, idprofesion) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+                    [id_contact, genpersonal, antecedentes, decpsicologico, idcargo, idarea, idprofesion]);
 
                 res.json(newPerson.rows[0]);
             }
         } else {
-            const newContact = await connection.query('INSERT INTO rrhh_contacto (nombre, apellido, ci, telefono, correo, direccion, fecnac) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-                [nombre, buscar, ci, telefono, correo, direccion, fecnac]);
+            const newContact = await connection.query('INSERT INTO rrhh_contacto (nombre, apellido, ci, telefeno, correo, direccion, fecnac) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+                [nombre, apellido, ci, telefeno, correo, direccion, fecnac]);
 
-            const newPerson = await connection.query('INSERT INTO rrhh_personal (id, genpersonal, antecedentes, descpsicologico, idcargo, idarea, idprofesion) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-                [newContact.fields[0], genpersonal, antecedentes, descpsicologica, idcargo, idarea, idprofesion]);
+            const newPerson = await connection.query('INSERT INTO rrhh_personal (id, genpersonal, antecedentes, decpsicologico, idcargo, idarea, idprofesion) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+                [newContact.rows[0].id, genpersonal, antecedentes, decpsicologico, idcargo, idarea, idprofesion]);
 
             res.json(newContact.rows[0], newPerson.rows[0]);
         }
@@ -108,6 +111,22 @@ const getOnePerson = async (req, res, next) => {
             return res.status(404).json({message: "Staff not found"});
         }
         res.json(result.rows[0]);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+/* BÚSQUEDA DE PERSONAL POR APELLIDOS */
+const getPersonByLastName = async (req, res, next) => {
+    try {
+        const { apellido } = req.params;
+
+        const result = await connection.query("SELECT * FROM rrhh_personal p inner join rrhh_contacto c on p.id = c.id inner join rrhh_cargo ca on p.idcargo = ca.id WHERE c.apellido like $1", ['%'+apellido+'%']);
+        if(result.rows.length === 0){
+            return res.status(404).json({message: "Staff not found"});
+        }
+        res.json(result.rows);
 
     } catch (error) {
         next(error);
@@ -216,9 +235,11 @@ const getCuenta = async (req, res, next) => {
 module.exports = {
     getPerson,
     getOnePerson,
+    getPersonByLastName,
     newAnticipo,
     createCuentaGestion,
     createPerson2,
+    createPerson,
     getCargo,
     getArea,
     getPro,

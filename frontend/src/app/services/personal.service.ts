@@ -37,7 +37,11 @@ export class PersonalService {
   getOnePersonal(staff: Staff){
     return this.http.get<Staff[]>(`${this.url}/${staff.apellido}`);
   }
-
+  
+  getPersonalByLastName(staff: Staff){
+    return this.http.get<Staff[]>(`${this.url}/personal/${staff.apellido}`);
+  }
+  
   getCargo(): Observable<any>{
     return this.http.get(`${this.url}/personal/cargo`)
   }
