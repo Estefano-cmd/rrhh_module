@@ -114,17 +114,29 @@ const getOnePerson = async (req, res, next) => {
     }
 }
 
+/* BUSCAR CONTRATO */
+const getContrato = async (req, res, next) => {
+    try {
+        const { apellido } = req.params;
+        const contrato = await connection.query("SELECT * FROM rrhh_contrato c inner join rrhh_personal p on p.id = c.idpersonal inner join rrhh_contacto co on co.id = p.id WHERE co.apellido = $1", [apellido]);
+        res.json(contrato.rows[0]);
+    } catch (error) {
+        next(error)
+    }
+}
+
 /* CREACIÓN DE LA CUENTA GESTION */
 const createCuentaGestion = async (req, res, next) => {
     try {
-        const { feccuenta, idpersonal } = req.body;
-        const contrato = await connection.query("SELECT * FROM rrhh_contrato WHERE idpersonal = $1", [idpersonal]);
-
+        const { totalpago, feccuenta, idpersonal } = req.body;
+        
         const cuentaPago = await connection.query("INSERT INTO rrhh_cuentagestion (totalpago, feccuenta, estadocuenta, idpersonal) VALUES ($1, $2, $3, $4) RETURNING *", 
-        [contrato.rows.sueldo, feccuenta, '1',idpersonal]);
+        [totalpago, feccuenta, '1',idpersonal]);
         //Estado de la cuenta 1 = iniciado, 2 = pendiente, 3 = finalizado
 
-        res.json(cuentaPago.rows[0]);
+        res.json(
+            {message: "Create successfully"}
+        );
 
     } catch (error) {
         next(error);
@@ -161,7 +173,6 @@ const getCuenta = async (req, res, next) => {
 
 module.exports = {
     getPerson,
-    createPerson,
     getOnePerson,
     newAnticipo,
     createCuentaGestion,
@@ -169,5 +180,6 @@ module.exports = {
     getCargo,
     getArea,
     getPro,
-    getCuenta
+    getCuenta,
+    getContrato
 };

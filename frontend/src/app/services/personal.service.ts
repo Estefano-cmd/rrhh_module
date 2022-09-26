@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 
 import { Staff } from '../models/personal';
+import { Contrato } from '../models/contrato';
+import { Cuenta } from '../models/cuentagestion';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,17 @@ export class PersonalService {
 
   SelectedStaff: any | Staff;
   staff: Staff[] | any;
+  SelectedContrato: any | Contrato;
+  contrato: Contrato[] | any;
+  SelectedCuenta: any | Cuenta;
+  cuenta: Cuenta[] | any;
+  
   private url = 'http://localhost:3000'
 
   constructor( private http: HttpClient ) {
       this.SelectedStaff = new Staff();
+      this.SelectedContrato = new Contrato();
+      this.SelectedCuenta = new Cuenta();
    }
 
   getPersonal(): Observable<any> {
@@ -43,5 +52,13 @@ export class PersonalService {
 
   addStaff(staff: Staff){
     return this.http.post(`${this.url}/personal`, staff)
+  }
+
+  getContrato(staff: Staff){
+    return this.http.get<Staff[]>(`${this.url}/contrato/${staff.apellido}`);
+  }
+
+  createCuenta(cuenta: Cuenta){
+    return this.http.post(`${this.url}/cuenta`, cuenta);
   }
 }

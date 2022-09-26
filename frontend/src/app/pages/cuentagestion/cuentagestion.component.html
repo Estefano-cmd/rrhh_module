@@ -1,0 +1,47 @@
+<div class="container-fluid col-md-4">
+    <form class="d-flex" #contratoSearch="ngForm" (ngSubmit)="searchContrato(contratoSearch)">
+        <input class="form-control me-2" placeholder="Buscar personal" aria-label="Search" name="apellido" #name="ngModel" [(ngModel)]="personalService.SelectedContrato.apellido">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>        
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th scope="col">Sueldo</th>
+          <th scope="col">Id del Personal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let personal of contrato">
+          <td>{{ personal.sueldo }}</td>
+          <td>{{ personal.idpersonal }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <form #cuentaForm="ngForm" (ngSubmit)="createCuentaGestion(cuentaForm)" *ngFor="let cont of contrato">
+        <div class="form-group">
+            <input type="text" name="nombre"  value= "{{ cont.nombre }}"
+              placeholder="Nombre" class="form-control" disabled>
+        </div>
+        <div class="form-group">
+            <input type="text" name="apellido" value= "{{ cont.apellido }}"
+              placeholder="Apellido" class="form-control" disabled>
+        </div>
+        <div class="form-group">
+            <input type="number" name="totalpago" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.totalpago" 
+              placeholder="Total pago" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="text" name="idpersonal" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.idpersonal"
+              placeholder="Id" class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="date" name="feccuenta" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.feccuenta"
+              placeholder="Fecha Gestión" class="form-control">
+        </div>
+        <button class="btn btn-primary mr-2" (click)="resetForm(cuentaForm)">Clean</button>
+        <button class="btn btn-secondary">Save</button>
+    </form>
+</div>

@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const {
   getPerson,
-  createPerson,
   getOnePerson,
   newAnticipo,
   createCuentaGestion,
@@ -9,7 +8,8 @@ const {
   getCargo,
   getArea,
   getPro,
-  getCuenta
+  getCuenta,
+  getContrato
   } = require("../controller/rrhh.controller");
 
 const router = Router();
@@ -21,5 +21,7 @@ router.get('/personal/cargo', getCargo);
 router.get('/personal/area', getArea);
 router.get('/personal/pro', getPro);
 router.get('/personal/cuenta', getCuenta);
+router.get('/contrato/:apellido', getContrato);
+router.post('/cuenta', createCuentaGestion)
 
 module.exports = router;

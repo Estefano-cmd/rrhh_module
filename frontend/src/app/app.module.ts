@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListadoPersonalComponent } from './pages/personal/listado-personal/listado-personal.component';
+import { CuentagestionComponent } from './pages/cuentagestion/cuentagestion.component';
 
 
 
@@ -19,6 +20,7 @@ import { ListadoPersonalComponent } from './pages/personal/listado-personal/list
   declarations: [
     AppComponent,
     ListadoPersonalComponent,
+    CuentagestionComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
