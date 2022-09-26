@@ -22,7 +22,7 @@ router.post('/personal', createPerson2);
 router.get('/personal/cargo', getCargo);
 router.get('/personal/area', getArea);
 router.get('/personal/pro', getPro);
-router.get('/cuenta/:apellido', getCuenta);
+router.get('/cuenta/:apellido/:fecini/:fecfin', getCuenta);
 router.get('/contrato/:apellido', getContrato);
 router.post('/cuenta', createCuentaGestion);
 router.post('/cuenta/anticipo', newAnticipo);
