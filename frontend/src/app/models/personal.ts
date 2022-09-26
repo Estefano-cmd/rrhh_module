@@ -1,5 +1,5 @@
 export class Staff{
-    constructor(nombre = "", apellido = "", ci = "", telefeno = "", correo = "", direccion = "", fecnac = null, genpersonal = "", antecedentes = "", decpsicologico = "", idcargo = 0, idarea = 0, idprofesion = 0) 
+    constructor(nombre = "", apellido = "", ci = "", telefeno = "", correo = "", direccion = "", fecnac = null, genpersonal = "", antecedentes = "", decpsicologico = "", idcargo = 0, idarea = 0, idprofesion = 0, detalle= "") 
     {  
         this.nombre = nombre;
         this.apellido = apellido;
@@ -14,6 +14,7 @@ export class Staff{
         this.idcargo = idcargo;
         this.idarea = idarea;
         this.idprofesion = idprofesion;
+        this.detalle = detalle;
     }
       nombre: String
       apellido: String
@@ -28,4 +29,5 @@ export class Staff{
       idcargo: Number
       idarea: Number
       idprofesion: Number
+      detalle: String
 }

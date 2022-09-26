@@ -41,7 +41,7 @@
             <input type="date" name="feccuenta" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.feccuenta"
               placeholder="Fecha Gestión" class="form-control">
         </div>
-        <button class="btn btn-primary mr-2" (click)="resetForm(cuentaForm)">Clean</button>
-        <button class="btn btn-secondary">Save</button>
+        <button class="btn btn-outline-danger mr-2" (click)="resetForm(cuentaForm)">Cancelar</button>
+        <button class="btn btn-outline-success">Guardar</button>
     </form>
 </div>
