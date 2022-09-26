@@ -22,22 +22,27 @@
 <div class="row">
     <form #cuentaForm="ngForm" (ngSubmit)="createCuentaGestion(cuentaForm)" *ngFor="let cont of contrato">
         <div class="form-group">
+            <label for="">Nombre</label>
             <input type="text" name="nombre"  value= "{{ cont.nombre }}"
               placeholder="Nombre" class="form-control" disabled>
         </div>
         <div class="form-group">
+            <label for="">Apellido</label>
             <input type="text" name="apellido" value= "{{ cont.apellido }}"
               placeholder="Apellido" class="form-control" disabled>
         </div>
         <div class="form-group">
+            <label for="">Total a Pagar</label>
             <input type="number" name="totalpago" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.totalpago" 
               placeholder="Total pago" class="form-control">
         </div>
         <div class="form-group">
+            <label for="">Id Personal</label>
             <input type="text" name="idpersonal" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.idpersonal"
               placeholder="Id" class="form-control">
         </div>
         <div class="form-group">
+            <label for="">Fecha de la Gestión</label>
             <input type="date" name="feccuenta" #name="ngModel" [(ngModel)]="personalService.SelectedCuenta.feccuenta"
               placeholder="Fecha Gestión" class="form-control">
         </div>
