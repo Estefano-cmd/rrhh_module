@@ -1,0 +1,17 @@
+.form-personal {
+    display: none;
+}
+
+.form-personal form {
+    max-width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-personal .btn-form {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 20px;
+}
