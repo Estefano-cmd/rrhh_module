@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListadoPersonalComponent } from './pages/personal/listado-personal/listado-personal.component';
 import { CuentagestionComponent } from './pages/cuentagestion/cuentagestion.component';
+import { RegistrarPersonalComponent } from './pages/personal/registrar-personal/registrar-personal.component';
 
 
 
@@ -21,6 +22,7 @@ import { CuentagestionComponent } from './pages/cuentagestion/cuentagestion.comp
     AppComponent,
     ListadoPersonalComponent,
     CuentagestionComponent,
+    RegistrarPersonalComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

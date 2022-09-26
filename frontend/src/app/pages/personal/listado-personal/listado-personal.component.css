@@ -3,7 +3,7 @@
 }
 
 .form-personal form {
-    max-width: 90%;
+    max-width: 80%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,13 @@
     grid-gap: 20px;
 }
 
-form{
+.form-personal .dobles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+/* form{
     overflow-x: hidden;
 }
 
@@ -32,4 +38,4 @@ form{
 }
 h1{
     text-align: center;
-}
+} */
