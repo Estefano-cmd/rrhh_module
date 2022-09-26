@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListadoPersonalComponent } from './pages/personal/listado-personal/listado-personal.component';
 import { CuentagestionComponent } from './pages/cuentagestion/cuentagestion.component';
 
 
@@ -15,11 +14,10 @@ import { CuentagestionComponent } from './pages/cuentagestion/cuentagestion.comp
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     AppComponent,
-    ListadoPersonalComponent,
     CuentagestionComponent,
   ],
   providers: [],

@@ -17,10 +17,10 @@ export class ListadoPersonalComponent implements OnInit {
   constructor( public personalService: PersonalService ) { }
 
   ngOnInit(): void {
-   /*  this.personalService.getPersonal().subscribe(data => {
+    this.personalService.getPersonal().subscribe(data => {
       console.log(data)
-     this.personal = data
-    }) */
+     this.personalService.staff = data
+    })
 
     /* this.personalService.getOnePersonal(this.apellido).subscribe(data => {
       console.log(data)
@@ -38,24 +38,24 @@ export class ListadoPersonalComponent implements OnInit {
      
   }
 
-  searchStaff(form: NgForm){
-    this.personalService.getOnePersonal(form.value).subscribe(
-      (res) => {
-        this.personalService.staff = res;
-        this.personalService.staff = Array.of(this.personalService.staff)
-        console.log(res)
-      }
-    );
-  }
+  // searchStaff(form: NgForm){
+  //   this.personalService.getOnePersonal(form.value).subscribe(
+  //     (res) => {
+  //       this.personalService.staff = res;
+  //       this.personalService.staff = Array.of(this.personalService.staff)
+  //       console.log(res)
+  //     }
+  //   );
+  // }
 
-  addStaff(form: NgForm){
-    this.personalService.addStaff(form.value).subscribe(
-      (res) => {
-       this.searchStaff(form);
-       this.resetForm(); 
-      }
-    )
-  }
+  // addStaff(form: NgForm){
+  //   this.personalService.addStaff(form.value).subscribe(
+  //     (res) => {
+  //      this.searchStaff(form);
+  //      this.resetForm(); 
+  //     }
+  //   )
+  // }
 
   resetForm(form?: NgForm){
     if(form){
