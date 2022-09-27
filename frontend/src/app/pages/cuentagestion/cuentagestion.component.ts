@@ -59,7 +59,7 @@ export class CuentagestionComponent implements OnInit {
   }
 
   totalCuenta() {
-
+    
   }
 
   resetForm(form?: NgForm){
