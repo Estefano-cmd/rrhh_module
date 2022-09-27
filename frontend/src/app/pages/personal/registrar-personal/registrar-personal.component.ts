@@ -57,6 +57,7 @@ export class RegistrarPersonalComponent implements OnInit {
   }
   
   addStaff(form: NgForm){
+    console.log(form.value)
     this.personalService.addStaff(form.value).subscribe(
       (res) => {
        this.searchStaffAdd(form)

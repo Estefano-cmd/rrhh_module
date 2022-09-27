@@ -51,7 +51,7 @@ const createPerson = async (req, res, next) => {
 
         /* Validación si existe el contacto */
         if (existe != null) {
-            const personal = await connection.query('SELECT * from rrhh_personal WHERE id = $1', [existe.fields[0]]);
+            const personal = await connection.query('SELECT * from rrhh_personal WHERE id = $1', [existe.rows[0].id]);
             /* Validación si existe el personal */
             if (personal.rowCount > 0) {
                 return res.json('The staff is alredy registered')
@@ -65,7 +65,7 @@ const createPerson = async (req, res, next) => {
             }
         } else {
             const newContact = await connection.query('INSERT INTO rrhh_contacto (nombre, apellido, ci, telefeno, correo, direccion, fecnac) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-                [nombre, buscar, ci, telefeno, correo, direccion, fecnac]);
+                [nombre, apellido, ci, telefeno, correo, direccion, fecnac]);
 
             const newPerson = await connection.query('INSERT INTO rrhh_personal (id, genpersonal, antecedentes, decpsicologico, idcargo, idarea, idprofesion) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
                 [newContact.rows[0].id, genpersonal, antecedentes, decpsicologico, idcargo, idarea, idprofesion]);

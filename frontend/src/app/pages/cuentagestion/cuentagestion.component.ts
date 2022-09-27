@@ -49,7 +49,6 @@ export class CuentagestionComponent implements OnInit {
   }
 
   getCuenta(form: NgForm) {
-    console.log(form)
     this.personalService.getCuenta(this.ci, form.value.fecini, form.value.fecfin).subscribe(
       (res) => {
         this.personalService.cuenta = res
@@ -59,7 +58,7 @@ export class CuentagestionComponent implements OnInit {
   }
 
   totalCuenta() {
-    
+
   }
 
   resetForm(form?: NgForm){
